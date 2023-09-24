@@ -1,0 +1,36 @@
+---
+import Meta from "./meta.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../constants";
+import Menus from "./menus.astro";
+import Footer from "./footer.astro";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const { title = "", description = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="bg-black text-white">
+  <head>
+    <Meta title={title ? `${title} · ${SITE_TITLE}` : SITE_TITLE} description={description ?? SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <div class="flex flex-col h-full overflow-y-scroll antialiased">
+      <header class="sticky top-0 bg-black/60 backdrop-blur-2xl transition-all select-none">
+        <div class="flex flex-row items-center justify-between max-w-screen-xl mx-auto px-4 py-4 sm:px-8">
+          <a href="/" class="flex flex-row flex-wrap gap-2 text-white text-2xl font-logo font-bold">
+            <h2>Swift. UI. Code.</h2>
+          </a>
+          <Menus />
+        </div>
+      </header>
+      <div class="flex-auto">
+        <slot />
+        <Footer />
+      </div>
+    </div>
+  </body>
+</html>

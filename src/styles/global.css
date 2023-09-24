@@ -1,0 +1,19 @@
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  content-visibility: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+*:focus-visible {
+  outline: none;
+}
+
+code {
+  @apply font-mono text-purple-400;
+}
+
+pre.astro-code {
+  @apply p-4 text-sm border rounded-lg border-zinc-800 bg-transparent leading-6 overflow-x-scroll !important;
+}

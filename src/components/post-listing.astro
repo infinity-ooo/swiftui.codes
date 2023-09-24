@@ -1,0 +1,17 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../components/layout.astro";
+import PostItem from "../components/post-item.astro";
+
+const posts = (await getCollection("blog")).sort((a, b) =>
+  new Date(a.data.date).valueOf() > new Date(b.data.date).valueOf() ? -1 : 1,
+);
+---
+
+<Layout>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-10 gap-x-0 sm:gap-x-10 max-w-screen-xl mx-auto px-4 py-12 sm:px-8"
+  >
+    {(posts ?? []).map((post) => <PostItem post={post} />)}
+  </div>
+</Layout>

@@ -1,0 +1,105 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../components/layout.astro";
+import Tag from "../../components/tag.astro";
+
+// MDX Components
+import H1 from "../../mdx-components/h1.astro";
+import H2 from "../../mdx-components/h2.astro";
+import H3 from "../../mdx-components/h3.astro";
+import H4 from "../../mdx-components/h4.astro";
+import H5 from "../../mdx-components/h5.astro";
+import H6 from "../../mdx-components/h6.astro";
+import A from "../../mdx-components/a.astro";
+import Blockquote from "../../mdx-components/blockquote.astro";
+import Img from "../../mdx-components/img.astro";
+import Ul from "../../mdx-components/ul.astro";
+import Ol from "../../mdx-components/ol.astro";
+import Li from "../../mdx-components/li.astro";
+import Input from "../../mdx-components/input.astro";
+import Table from "../../mdx-components/table.astro";
+import Tr from "../../mdx-components/tr.astro";
+import Th from "../../mdx-components/th.astro";
+import Td from "../../mdx-components/td.astro";
+import Strong from "../../mdx-components/strong.astro";
+import Em from "../../mdx-components/em.astro";
+import I from "../../mdx-components/i.astro";
+import Del from "../../mdx-components/del.astro";
+import Hr from "../../mdx-components/hr.astro";
+import Br from "../../mdx-components/br.astro";
+import P from "../../mdx-components/p.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout>
+  <div class="flex flex-col gap-8 md:w-5/6 px-4 py-12 sm:px-8 mx-auto">
+    <div class="flex flex-col gap-5 items-center justify-center max-w-screen-md mx-auto">
+      <div class="flex items-center justify-center gap-2">
+        <span class="px-3 py-1 rounded-xl text-xs text-white bg-zinc-700/60">{post.data.date}</span>
+        {post.data.tags?.map((tag) => <Tag tag={tag} />)}
+      </div>
+      <h1 class="text-5xl text-center font-title font-bold">{post.data.title}</h1>
+      <div class="flex gap-3 items-center text-sm">
+        <img src="/avatar.png" alt="author avatar" class="w-10 rounded-full aspect-square" />
+        <div class="flex flex-col text-stone-100">
+          <p class="text-sm font-semibold">Mia Yv</p>
+          <a href="/" class="text-blue-500">@miayv</a>
+        </div>
+      </div>
+      <p class="text-xl text-center text-stone-400 font-light">{post.data.description}</p>
+    </div>
+    {
+      post.data.cover && (
+        <img
+          src={post.data.cover ? `${post.data.cover}?w=1024&q=70` : ""}
+          alt="covert"
+          class="w-full aspect-video max-w-screen-lg mx-auto rounded-xl"
+        />
+      )
+    }
+    <div class="flex flex-col gap-3 max-w-screen-md mx-auto text-lg">
+      <Content
+        components={{
+          h1: H1,
+          h2: H2,
+          h3: H3,
+          h4: H4,
+          h5: H5,
+          h6: H6,
+          p: P,
+          a: A,
+          blockquote: Blockquote,
+          img: Img,
+          ul: Ul,
+          ol: Ol,
+          li: Li,
+          input: Input,
+          table: Table,
+          tr: Tr,
+          th: Th,
+          td: Td,
+          strong: Strong,
+          em: Em,
+          i: I,
+          del: Del,
+          hr: Hr,
+          br: Br,
+        }}
+      />
+    </div>
+  </div>
+</Layout>

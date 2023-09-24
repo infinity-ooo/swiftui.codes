@@ -1,0 +1,33 @@
+---
+const menus = [
+  {
+    title: "Posts",
+    link: "/posts",
+    target: "_self",
+  },
+  {
+    title: "Cheatsheets",
+    link: "/cheatsheets",
+    target: "_self",
+  },
+  {
+    title: "Featured",
+    link: "/featured",
+    target: "_self",
+  },
+];
+---
+
+<div class="flex flex-row text-white font-meidum -mr-3">
+  {
+    menus.map((item) => (
+      <a
+        href={item.link}
+        target={item.target}
+        class="py-1 px-4 text-sm rounded-2xl bg-transparent hover:bg-zinc-600/60 transition ease-in-out cursor-pointer"
+      >
+        {item.title}
+      </a>
+    ))
+  }
+</div>

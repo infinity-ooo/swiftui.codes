@@ -1,0 +1,11 @@
+---
+type Props = {
+  tag: string;
+};
+
+const { tag } = Astro.props;
+---
+
+<span class="text-sm bg-clip-text text-transparent bg-gradient-to-r from-red-200 to-orange-300"
+  >{tag.toUpperCase()}</span
+>
