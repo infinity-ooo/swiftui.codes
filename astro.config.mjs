@@ -1,5 +1,5 @@
+import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
-import prefetch from "@astrojs/prefetch";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
@@ -10,6 +10,7 @@ import remarkMath from "remark-math";
 // https://astro.build/config
 export default defineConfig({
   site: "https://swiftui.codes",
+  prefetch: true,
   integrations: [
     mdx({
       syntaxHighlight: "shiki",
@@ -19,10 +20,10 @@ export default defineConfig({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex],
     }),
-    prefetch(),
     sitemap(),
     tailwind(),
     react(),
   ],
-  output: "static",
+  output: "server",
+  adapter: cloudflare(),
 });
