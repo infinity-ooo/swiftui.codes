@@ -1,4 +1,3 @@
-import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
@@ -24,6 +23,5 @@ export default defineConfig({
     tailwind(),
     react(),
   ],
-  output: "server",
-  adapter: cloudflare(),
+  output: "static",
 });
